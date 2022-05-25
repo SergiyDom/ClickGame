@@ -6,20 +6,22 @@ public class View extends JPanel {
     private static final String FONT_NAME = "Text";
     private static final int TILE_SIZE = 54;
     private static final int TILE_MARGIN = 4;
+
+    public static int xCoord;
+    public static int yCoord;
+
     boolean isGameWon = false;
     boolean isGameLost = false;
-    private Controller controller;
 
-//    MyComponent myComponent;
+    private Controller controller;
 
     public View(Controller controller) {
         setLayout(null);
-        setPreferredSize(new Dimension(600, 700));
+        setPreferredSize(new Dimension(585, 590));
 
         setFocusable(true);
         this.controller = controller;
-        addKeyListener(controller); //добавляємо слухача (клавіатуру)
-//        addMouseListener(controller); //добавляємо слухача (мишку)
+        addMouseListener(controller); //добавляємо слухача (мишка)
     }
 
     private static int offsetCoors(int arg) { //розрахунок координат кожної Tile (верхнього лівого кута)
@@ -32,22 +34,22 @@ public class View extends JPanel {
         g.setColor(BG_COLOR);
         g.fillRect(0, 0, this.getSize().width, this.getSize().height); // розміщення фону JPanel выдносно до JFrame
         for (int x = 0; x < 10; x++) {
-
             for (int y = 0; y < 10; y++) {
                 drawTile(g, controller.getGameTiles()[y][x], x, y); // відмалювання Tile
             }
         }
-        g.setColor(Color.GREEN);
-        g.drawString("Score: " + controller.getScore(), 300, 620);
+
+//        g.setColor(Color.GREEN);
+//        g.drawString("X: " + xCoord, 10, 35);
+//        g.drawString("Y: " + yCoord, 10, 65);
 
 
-        if (isGameWon) {
-            JOptionPane.showMessageDialog(this, "You've won!");
-        } else if (isGameLost) {
-            JOptionPane.showMessageDialog(this, "You've lost :(");
-        }
+//        if (isGameWon) {
+//            JOptionPane.showMessageDialog(this, "You've won!");
+//        } else if (isGameLost) {
+//            JOptionPane.showMessageDialog(this, "You've lost :(");
+//        }
 
-//        myComponent.repaint();
     }
 
     public void drawTile(Graphics g2, Tile tile, int x, int y) {
@@ -59,6 +61,8 @@ public class View extends JPanel {
         int yOffset = offsetCoors(y);
         g.setColor(tile.getTileColor()); //колір кожної Tile
         g.fillRoundRect(xOffset, yOffset, TILE_SIZE, TILE_SIZE, 8, 8); //відмальвує Tile (без значення)
+        tile.xCoord = xOffset;
+        tile.yCoord = yOffset;
 
         g.setColor(tile.getFontColor()); // колір значень (текст)
         final int size = value < 100 ? 28 : value < 1000 ? 32 : 38;
@@ -71,8 +75,8 @@ public class View extends JPanel {
         final int w = fm.stringWidth(s);
         final int h = -(int) fm.getLineMetrics(s, g).getBaselineOffsets()[2];
 
-        if (value != 0) { //відмальовування значень на Tile
-            g.drawString(s, xOffset + (TILE_SIZE - w) / 2, yOffset + TILE_SIZE - (TILE_SIZE - h) / 2 - 2);
-        }
+//        if (value != 0) { //відмальовування значень на Tile
+//            g.drawString(s, xOffset + (TILE_SIZE - w) / 2, yOffset + TILE_SIZE - (TILE_SIZE - h) / 2 - 2);
+//        }
     }
 }
