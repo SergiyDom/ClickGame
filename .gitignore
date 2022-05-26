@@ -27,4 +27,6 @@ $RECYCLE.BIN/
 out
 *.idea
 *.xml
+
+*.class
 *.iml
