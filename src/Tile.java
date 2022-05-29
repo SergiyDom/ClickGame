@@ -24,17 +24,16 @@ public class Tile {
     }
 
     public Color getTileColor() { //колір плитка
-        switch (value) {
-            case 0: //на старті
-                return new Color(65, 105, 225);
-            case 2: //при першій появі
-                return new Color(255, 255, 0);
-            case 4: //якщо не встиг натиснути за вказаний час
-                return new Color(255, 0, 0);
-            case 6: //встиг натиснути
-                return new Color(0, 225, 0);
-            default:
-                return new Color(0, 0, 0);
-        }
+        return switch (value) {
+            case 0 -> //на старті
+                    Color.GREEN;
+            case 2 -> //при першій появі
+                    new Color(255, 255, 0);
+            case 4 -> //якщо не встиг натиснути за вказаний час
+                    new Color(255, 0, 0);
+            case 6 -> //встиг натиснути
+                    new Color(0, 225, 0);
+            default -> new Color(0, 0, 0);
+        };
     }
 }
